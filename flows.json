@@ -1,0 +1,803 @@
+[
+    {
+        "id": "8d899d103d54fcb4",
+        "type": "tab",
+        "label": "TEST",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4b44f0c535c55573",
+        "type": "group",
+        "z": "8d899d103d54fcb4",
+        "name": "Receiver",
+        "style": {
+            "stroke": "#92d04f",
+            "label": true,
+            "fill": "#e3f3d3",
+            "fill-opacity": "0.49"
+        },
+        "nodes": [
+            "a528adcd899cc224",
+            "1e26965ac8cd18a5",
+            "73deb17e157d652c",
+            "d8ba52303f1f34d7",
+            "4ef67df92b6b41a0"
+        ],
+        "x": 134,
+        "y": 199,
+        "w": 1012,
+        "h": 82
+    },
+    {
+        "id": "debca25bd41c3beb",
+        "type": "group",
+        "z": "8d899d103d54fcb4",
+        "name": "Setup",
+        "style": {
+            "stroke": "#0070c0",
+            "label": true,
+            "fill": "#bfdbef",
+            "fill-opacity": "0.42"
+        },
+        "nodes": [
+            "29872137728a3c2a",
+            "078bf0982977e219",
+            "f20ab8d12952f475"
+        ],
+        "x": 134,
+        "y": 59,
+        "w": 632,
+        "h": 82
+    },
+    {
+        "id": "7db6da50690ce1b8",
+        "type": "group",
+        "z": "8d899d103d54fcb4",
+        "name": "Workers",
+        "style": {
+            "stroke": "#ffC000",
+            "fill": "#ffefbf",
+            "fill-opacity": "0.4",
+            "label": true
+        },
+        "nodes": [
+            "7cfb040d7fb2d8f8",
+            "f94c2e1398b048de",
+            "5c3a5ac0c2d45e34",
+            "4b1fc28f29cd97e4",
+            "ddd2e2fb0974cebd",
+            "eac1e12ddd5dc6d4",
+            "c0965faa5aab4cc4",
+            "9949a837f38ceaa3",
+            "f0e4c0fc405e3253",
+            "cdec9524816db338",
+            "cfc5eb1d5d70e355",
+            "45c02e57efe348ea",
+            "e105d292720cc89a"
+        ],
+        "x": 134,
+        "y": 339,
+        "w": 1752,
+        "h": 222
+    },
+    {
+        "id": "5c6e1afbfdbe98b1",
+        "type": "group",
+        "z": "8d899d103d54fcb4",
+        "name": "Fetch orphans",
+        "style": {
+            "stroke": "#0070c0",
+            "fill": "#bfdbef",
+            "fill-opacity": "0.54",
+            "label": true
+        },
+        "nodes": [
+            "d27e55405b9c5f80",
+            "4c7aef8f3889a441",
+            "7935ce525f610502",
+            "8afbe2cca9dfa32f",
+            "a88ffe3513f82fb2",
+            "5cd2bf4fcc6c9386",
+            "824756e668e6731a"
+        ],
+        "x": 134,
+        "y": 619,
+        "w": 1302,
+        "h": 82
+    },
+    {
+        "id": "56ad5c81835e309c",
+        "type": "group",
+        "z": "8d899d103d54fcb4",
+        "name": "Error Handlers",
+        "style": {
+            "stroke": "#ff0000",
+            "fill": "#ffbfbf",
+            "fill-opacity": "0.71",
+            "label": true
+        },
+        "nodes": [
+            "faf6b87727153a8a",
+            "6111cdad0ce27a2d",
+            "22de00404735fa56",
+            "80528685e178d340",
+            "2736ba65feae5844"
+        ],
+        "x": 134,
+        "y": 759,
+        "w": 652,
+        "h": 142
+    },
+    {
+        "id": "a528adcd899cc224",
+        "type": "http in",
+        "z": "8d899d103d54fcb4",
+        "g": "4b44f0c535c55573",
+        "name": "Accept Request",
+        "url": "/trip/event",
+        "method": "post",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 240,
+        "y": 240,
+        "wires": [
+            [
+                "73deb17e157d652c"
+            ]
+        ]
+    },
+    {
+        "id": "1e26965ac8cd18a5",
+        "type": "http response",
+        "z": "8d899d103d54fcb4",
+        "g": "4b44f0c535c55573",
+        "name": "Response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1060,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "73deb17e157d652c",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "4b44f0c535c55573",
+        "name": "Add to stream",
+        "func": "msg.topic = 'trips:events';\nmsg.payload = ['IDMPAUTO', 'webhook-receiver', '*', 'body', JSON.stringify(msg.payload)];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 240,
+        "wires": [
+            [
+                "d8ba52303f1f34d7"
+            ]
+        ]
+    },
+    {
+        "id": "29872137728a3c2a",
+        "type": "inject",
+        "z": "8d899d103d54fcb4",
+        "g": "debca25bd41c3beb",
+        "name": "",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 230,
+        "y": 100,
+        "wires": [
+            [
+                "f20ab8d12952f475"
+            ]
+        ]
+    },
+    {
+        "id": "d8ba52303f1f34d7",
+        "type": "redis-command",
+        "z": "8d899d103d54fcb4",
+        "g": "4b44f0c535c55573",
+        "server": "2f91e8cc81a836c6",
+        "command": "XADD",
+        "name": "XADD",
+        "topic": "",
+        "params": "",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 650,
+        "y": 240,
+        "wires": [
+            [
+                "4ef67df92b6b41a0"
+            ]
+        ]
+    },
+    {
+        "id": "4ef67df92b6b41a0",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "4b44f0c535c55573",
+        "name": "Prepare response",
+        "func": "msg.statusCode = 200;\nmsg.payload = { ok: true };\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 240,
+        "wires": [
+            [
+                "1e26965ac8cd18a5"
+            ]
+        ]
+    },
+    {
+        "id": "faf6b87727153a8a",
+        "type": "catch",
+        "z": "8d899d103d54fcb4",
+        "g": "56ad5c81835e309c",
+        "name": "",
+        "scope": [
+            "d8ba52303f1f34d7"
+        ],
+        "uncaught": false,
+        "x": 210,
+        "y": 800,
+        "wires": [
+            [
+                "6111cdad0ce27a2d"
+            ]
+        ]
+    },
+    {
+        "id": "6111cdad0ce27a2d",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "56ad5c81835e309c",
+        "name": "Send 500 ",
+        "func": "msg.statusCode = 500;\nmsg.payload = { ok: false };\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 800,
+        "wires": [
+            [
+                "22de00404735fa56"
+            ]
+        ]
+    },
+    {
+        "id": "22de00404735fa56",
+        "type": "http response",
+        "z": "8d899d103d54fcb4",
+        "g": "56ad5c81835e309c",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 710,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "7cfb040d7fb2d8f8",
+        "type": "inject",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "name": "",
+        "props": [],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "x": 230,
+        "y": 460,
+        "wires": [
+            [
+                "5c3a5ac0c2d45e34"
+            ]
+        ]
+    },
+    {
+        "id": "078bf0982977e219",
+        "type": "redis-command",
+        "z": "8d899d103d54fcb4",
+        "g": "debca25bd41c3beb",
+        "server": "2f91e8cc81a836c6",
+        "command": "XGROUP",
+        "name": "XGROUP",
+        "topic": "CREATE",
+        "params": "",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 680,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f20ab8d12952f475",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "debca25bd41c3beb",
+        "name": "Create Consumer Group",
+        "func": "msg.payload = [\"trips:events\", \"workers\", \"$\", \"MKSTREAM\"];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 100,
+        "wires": [
+            [
+                "078bf0982977e219"
+            ]
+        ]
+    },
+    {
+        "id": "f94c2e1398b048de",
+        "type": "redis-command",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "server": "2f91e8cc81a836c6",
+        "command": "XREADGROUP",
+        "name": "XREADGROUP",
+        "topic": "",
+        "params": "",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 620,
+        "y": 460,
+        "wires": [
+            [
+                "4b1fc28f29cd97e4"
+            ]
+        ]
+    },
+    {
+        "id": "5c3a5ac0c2d45e34",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "name": "Lock worker",
+        "func": "const busy = flow.get('busy');\nif (busy && Date.now() - busy < 60000) return null;\nflow.set('busy', Date.now());\nmsg.topic = 'GROUP';\nmsg.payload = ['workers', env.get('HOSTNAME') || 'pod-1', 'COUNT', 1, 'STREAMS', 'trips:events', '>'];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 460,
+        "wires": [
+            [
+                "f94c2e1398b048de"
+            ]
+        ]
+    },
+    {
+        "id": "4b1fc28f29cd97e4",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "name": "Parse event",
+        "func": "const r = msg.payload;\nif (!r || !r.length) { flow.set('busy', null); return null; }\nconst [id, fields] = r[0][1][0];\nmsg.entryId = id;\nmsg.body = fields[1];\nmsg.deliveries = 1;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 830,
+        "y": 460,
+        "wires": [
+            [
+                "ddd2e2fb0974cebd"
+            ]
+        ]
+    },
+    {
+        "id": "ddd2e2fb0974cebd",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "name": "Handle event",
+        "func": "// handle (два виходи: 1 = на XACK, 2 = у dead-letter)\nconst sleep = ms => new Promise(r => setTimeout(r, ms));\nconst MAX = 5;\nif (msg.deliveries >= MAX) {\n    flow.set('busy', null); \n    return [null, msg];\n}\ntry {\n    await sleep(Math.random() * 10000);\n    if (Math.random() < 0.3) throw new Error('random failure');\n    console.log('processed', msg.entryId, msg.body);\n    msg.topic = 'trips:events';\n    msg.payload = ['workers', msg.entryId];\n    flow.set('busy', null);\n    return [msg, null];\n} catch (e) {\n    node.warn('failed ' + msg.entryId + ': ' + e.message);  // без XACK, запис лишається в PEL\n    flow.set('busy', null);\n    return null;\n}",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 460,
+        "wires": [
+            [
+                "eac1e12ddd5dc6d4"
+            ],
+            [
+                "f0e4c0fc405e3253"
+            ]
+        ]
+    },
+    {
+        "id": "eac1e12ddd5dc6d4",
+        "type": "redis-command",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "server": "2f91e8cc81a836c6",
+        "command": "XACK",
+        "name": "XACK",
+        "topic": "",
+        "params": "",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 1230,
+        "y": 420,
+        "wires": [
+            [
+                "c0965faa5aab4cc4"
+            ]
+        ]
+    },
+    {
+        "id": "c0965faa5aab4cc4",
+        "type": "debug",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1400,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "d27e55405b9c5f80",
+        "type": "inject",
+        "z": "8d899d103d54fcb4",
+        "g": "5c6e1afbfdbe98b1",
+        "name": "",
+        "props": [],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "x": 230,
+        "y": 660,
+        "wires": [
+            [
+                "4c7aef8f3889a441"
+            ]
+        ]
+    },
+    {
+        "id": "4c7aef8f3889a441",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "5c6e1afbfdbe98b1",
+        "name": "Scan orphans",
+        "func": "const busy = flow.get('busy');\nif (busy && Date.now() - busy < 60000) return null;\nflow.set('busy', Date.now());\nmsg.topic = 'trips:events';\nmsg.payload = ['workers', 'IDLE', 30000, '-', '+', 1];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 660,
+        "wires": [
+            [
+                "7935ce525f610502"
+            ]
+        ]
+    },
+    {
+        "id": "7935ce525f610502",
+        "type": "redis-command",
+        "z": "8d899d103d54fcb4",
+        "g": "5c6e1afbfdbe98b1",
+        "server": "2f91e8cc81a836c6",
+        "command": "XPENDING",
+        "name": "XPENDING",
+        "topic": "",
+        "params": "",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 630,
+        "y": 660,
+        "wires": [
+            [
+                "8afbe2cca9dfa32f"
+            ]
+        ]
+    },
+    {
+        "id": "8afbe2cca9dfa32f",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "5c6e1afbfdbe98b1",
+        "name": "Parse pending",
+        "func": "const r = msg.payload;\nif (!r || !r.length) { flow.set('busy', null); return null; }\nmsg.entryId = r[0][0];\nmsg.deliveries = r[0][3];\nmsg.topic = 'trips:events';\nmsg.payload = ['workers', env.get('HOSTNAME') || 'pod-1', 30000, msg.entryId];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 660,
+        "wires": [
+            [
+                "a88ffe3513f82fb2"
+            ]
+        ]
+    },
+    {
+        "id": "a88ffe3513f82fb2",
+        "type": "redis-command",
+        "z": "8d899d103d54fcb4",
+        "g": "5c6e1afbfdbe98b1",
+        "server": "2f91e8cc81a836c6",
+        "command": "XCLAIM",
+        "name": "XCLAIM",
+        "topic": "",
+        "params": "",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 1040,
+        "y": 660,
+        "wires": [
+            [
+                "5cd2bf4fcc6c9386"
+            ]
+        ]
+    },
+    {
+        "id": "5cd2bf4fcc6c9386",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "5c6e1afbfdbe98b1",
+        "name": "Parse claimed",
+        "func": "const r = msg.payload;\nif (!r || !r.length) { flow.set('busy', null); return null; }  // забрав інший под\nmsg.body = r[0][1][1];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 660,
+        "wires": [
+            [
+                "824756e668e6731a"
+            ]
+        ]
+    },
+    {
+        "id": "824756e668e6731a",
+        "type": "link out",
+        "z": "8d899d103d54fcb4",
+        "g": "5c6e1afbfdbe98b1",
+        "name": "handle",
+        "mode": "link",
+        "links": [
+            "9949a837f38ceaa3"
+        ],
+        "x": 1395,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "9949a837f38ceaa3",
+        "type": "link in",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "name": "link in 1",
+        "links": [
+            "824756e668e6731a"
+        ],
+        "x": 885,
+        "y": 520,
+        "wires": [
+            [
+                "ddd2e2fb0974cebd"
+            ]
+        ]
+    },
+    {
+        "id": "f0e4c0fc405e3253",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "name": "Send to dead-letter",
+        "func": "msg.topic = 'trips:dead';\nmsg.payload = ['*', 'origId', msg.entryId, 'body', msg.body];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1270,
+        "y": 500,
+        "wires": [
+            [
+                "cdec9524816db338"
+            ]
+        ]
+    },
+    {
+        "id": "cdec9524816db338",
+        "type": "redis-command",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "server": "2f91e8cc81a836c6",
+        "command": "XADD",
+        "name": "XADD",
+        "topic": "",
+        "params": "",
+        "paramsType": "json",
+        "payloadType": "json",
+        "block": false,
+        "x": 1470,
+        "y": 500,
+        "wires": [
+            [
+                "cfc5eb1d5d70e355"
+            ]
+        ]
+    },
+    {
+        "id": "cfc5eb1d5d70e355",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "name": "Prepare ACK for failed",
+        "func": "msg.topic = 'trips:events';\nmsg.payload = ['workers', msg.entryId];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1680,
+        "y": 500,
+        "wires": [
+            [
+                "45c02e57efe348ea"
+            ]
+        ]
+    },
+    {
+        "id": "45c02e57efe348ea",
+        "type": "link out",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "name": "xack",
+        "mode": "link",
+        "links": [
+            "e105d292720cc89a"
+        ],
+        "x": 1845,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "e105d292720cc89a",
+        "type": "link in",
+        "z": "8d899d103d54fcb4",
+        "g": "7db6da50690ce1b8",
+        "name": "link in 2",
+        "links": [
+            "45c02e57efe348ea"
+        ],
+        "x": 1105,
+        "y": 380,
+        "wires": [
+            [
+                "eac1e12ddd5dc6d4"
+            ]
+        ]
+    },
+    {
+        "id": "80528685e178d340",
+        "type": "catch",
+        "z": "8d899d103d54fcb4",
+        "g": "56ad5c81835e309c",
+        "name": "",
+        "scope": [
+            "eac1e12ddd5dc6d4",
+            "cdec9524816db338",
+            "a88ffe3513f82fb2",
+            "7935ce525f610502",
+            "f94c2e1398b048de",
+            "ddd2e2fb0974cebd",
+            "5c3a5ac0c2d45e34",
+            "5cd2bf4fcc6c9386",
+            "4b1fc28f29cd97e4",
+            "8afbe2cca9dfa32f",
+            "cfc5eb1d5d70e355",
+            "4c7aef8f3889a441",
+            "f0e4c0fc405e3253"
+        ],
+        "uncaught": false,
+        "x": 220,
+        "y": 860,
+        "wires": [
+            [
+                "2736ba65feae5844"
+            ]
+        ]
+    },
+    {
+        "id": "2736ba65feae5844",
+        "type": "function",
+        "z": "8d899d103d54fcb4",
+        "g": "56ad5c81835e309c",
+        "name": "Reset busy",
+        "func": "flow.set('busy', null); \nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2f91e8cc81a836c6",
+        "type": "redis-config",
+        "name": "Local",
+        "options": "{}",
+        "cluster": false,
+        "optionsType": "json"
+    },
+    {
+        "id": "c0dd9de3150fc841",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-redis": "1.4.0"
+        }
+    }
+]

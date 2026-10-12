@@ -1,0 +1,32 @@
+x-node-red: &node-red
+  build: .
+  depends_on:
+    redis:
+      condition: service_healthy
+  restart: unless-stopped
+
+services:
+  redis:
+    # IDMPAUTO потребує Redis 8.6+. Перевірте, що такий тег існує, і вирівняйте
+    # з версією, на якій ви тестували локально (redis-cli INFO server).
+    image: redis:8.6
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+
+  node-red-1:
+    <<: *node-red
+    hostname: node-red-1      # HOSTNAME стає іменем consumer-а у групі
+    ports:
+      - "1881:1880"
+
+  node-red-2:
+    <<: *node-red
+    hostname: node-red-2
+    ports:
+      - "1882:1880"
